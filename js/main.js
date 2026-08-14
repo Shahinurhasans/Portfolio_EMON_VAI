@@ -25,12 +25,7 @@
 
   (function initTheme() {
     const saved = localStorage.getItem(THEME_KEY);
-    if (saved) {
-      applyTheme(saved);
-    } else {
-      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-      applyTheme(prefersLight ? 'light' : 'dark');
-    }
+    applyTheme(saved || 'dark');
   })();
 
   themeToggle?.addEventListener('click', () => {
