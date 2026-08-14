@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(start \"\" \"f:/Portfolio_EMON_VAI/index.html\")"
-    ]
-  }
-}
