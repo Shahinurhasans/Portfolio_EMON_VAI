@@ -1,6 +1,6 @@
-# Abu Nayem Md. Asraf Siddiquee — Portfolio
+﻿# Abu Nayem Md. Asraf Siddiquee - Portfolio
 
-A modern, single-page portfolio website built with **plain HTML, CSS, and JavaScript** — no
+A modern, single-page portfolio website built with **plain HTML, CSS, and JavaScript** - no
 frameworks, no build step, no dependencies. Designed to be deployed directly on **GitHub Pages**.
 
 ## Folder Structure
@@ -31,7 +31,7 @@ Portfolio_EMON_VAI/
 - Expandable publications & presentations list
 - Client-side validated contact form (opens the visitor's email client via `mailto:`)
 - Fully responsive: desktop, tablet, and mobile navigation
-- Zero external JS dependencies — only Google Fonts is loaded from a CDN
+- Zero external JS dependencies - only Google Fonts is loaded from a CDN
 
 ## Running Locally
 
