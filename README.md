@@ -15,8 +15,11 @@ Portfolio_EMON_VAI/
 ├── assets/
 │   ├── img/
 │   │   └── favicon.svg      # Browser tab icon
-│   └── cv/
-│       └── Siddiquee_Asraf_CV.pdf   # Downloadable resume
+│   ├── cv/
+│   │   └── Siddiquee_Asraf_CV.pdf   # Downloadable resume
+│   └── videos/
+│       ├── sea-star/                # Sea Star-inspired robot demo/sim clips
+│       └── soft-legged-robot/       # Soft, multi-legged robot demo clips
 ├── .nojekyll                # Prevents GitHub Pages from running Jekyll on the site
 └── README.md
 ```
@@ -28,8 +31,10 @@ Portfolio_EMON_VAI/
 - Animated hero section with gradient glow background
 - Scroll-reveal animations and animated stat counters
 - Tabbed experience section (Research / Teaching / Industry)
+- Hero video mosaic and a dedicated Projects section with real robot demo footage
+  (autoplaying muted preview tiles in the hero, hover-to-play clips in Projects)
 - Expandable publications & presentations list
-- Client-side validated contact form (opens the visitor's email client via `mailto:`)
+- "Write an Email" contact CTA (opens the visitor's email client via `mailto:` — no backend)
 - Fully responsive: desktop, tablet, and mobile navigation
 - Zero external JS dependencies - only Google Fonts is loaded from a CDN
 
@@ -56,11 +61,21 @@ python -m http.server 8080
 The included `.nojekyll` file ensures GitHub Pages serves the site as-is without running it
 through Jekyll processing.
 
+> **Note on video assets**: `assets/videos/` currently totals roughly 400 MB (individual clips
+> up to ~67 MB, under GitHub's 100 MB per-file hard limit but well above its 50 MB soft warning).
+> This will make the repository slow to clone and push. If that becomes a problem, compress the
+> clips (e.g. `ffmpeg -i in.mp4 -vcodec libx264 -crf 28 -preset veryslow -an out.mp4`) or host
+> them externally (e.g. Git LFS, a CDN, or YouTube embeds) and point the `<video src>` /
+> `<source>` attributes at the new URLs.
+
 ## Customization
 
 - **Colors / theme**: edit the CSS custom properties at the top of `css/style.css`
   (`:root` for dark theme, `[data-theme="light"]` for light theme).
 - **Content**: all text lives directly in `index.html`, organized by section
-  (`#home`, `#about`, `#education`, `#experience`, `#research`, `#skills`, `#awards`, `#contact`).
+  (`#home`, `#about`, `#education`, `#experience`, `#projects`, `#research`, `#skills`, `#awards`,
+  `#contact`).
 - **Resume**: replace `assets/cv/Siddiquee_Asraf_CV.pdf` with an updated file of the same name,
   or update the `href`/`download` link in `index.html`.
+- **Videos**: drop new `.mp4` clips into `assets/videos/<project>/` and reference them from the
+  hero showreel (`.showreel__tile`) or the Projects section (`.video-card`) in `index.html`.

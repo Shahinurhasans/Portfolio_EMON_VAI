@@ -264,6 +264,90 @@
     window.addEventListener('resize', resize);
   }
 
+  /* ---------- Hero Showreel: single-player clip switcher ---------- */
+  const showreelVideo = $('#showreelVideo');
+  const showreelTabs = $$('.showreel__tab');
+  const showreelTag = $('#showreelTag');
+  const showreelCaption = $('#showreelCaption');
+
+  showreelTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      if (tab.classList.contains('active')) return;
+
+      showreelTabs.forEach(t => {
+        t.classList.toggle('active', t === tab);
+        t.setAttribute('aria-selected', String(t === tab));
+      });
+
+      showreelVideo.style.opacity = '0';
+      window.setTimeout(() => {
+        showreelVideo.src = tab.dataset.src;
+        showreelVideo.load();
+        showreelVideo.play().catch(() => {});
+        showreelTag.textContent = tab.dataset.tag;
+        showreelCaption.textContent = tab.dataset.caption;
+        showreelVideo.style.opacity = '1';
+      }, 180);
+    });
+  });
+
+  if (showreelVideo) {
+    const showreelObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          showreelVideo.play().catch(() => {});
+        } else {
+          showreelVideo.pause();
+        }
+      });
+    }, { threshold: 0.3 });
+    showreelObserver.observe(showreelVideo);
+  }
+
+  /* ---------- Project videos: auto-play in loop while in view ---------- */
+  const PLAY_ICON = '<path d="M8 5v14l11-7z"/>';
+  const PAUSE_ICON = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+
+  const videoFrames = $$('.video-card__frame');
+  if (videoFrames.length) {
+    videoFrames.forEach(frame => {
+      const video = frame.querySelector('video');
+      const playBtn = frame.querySelector('.video-card__play');
+      const icon = playBtn.querySelector('svg');
+
+      video.addEventListener('play', () => {
+        frame.classList.add('is-playing');
+        icon.innerHTML = PAUSE_ICON;
+      });
+      video.addEventListener('pause', () => {
+        frame.classList.remove('is-playing');
+        icon.innerHTML = PLAY_ICON;
+      });
+
+      // Manual override: let the viewer pause/resume a clip on click.
+      function togglePlay() {
+        if (video.paused) video.play().catch(() => {});
+        else video.pause();
+      }
+      playBtn.addEventListener('click', (e) => { e.stopPropagation(); togglePlay(); });
+      frame.addEventListener('click', togglePlay);
+    });
+
+    const autoplayObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const frame = entry.target;
+        const video = frame.querySelector('video');
+        if (entry.isIntersecting) {
+          if (video.preload !== 'auto') video.preload = 'auto';
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.35 });
+    videoFrames.forEach(frame => autoplayObserver.observe(frame));
+  }
+
   /* ---------- Footer Year ---------- */
   const yearEl = $('#year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
