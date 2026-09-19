@@ -338,7 +338,9 @@
         const frame = entry.target;
         const video = frame.querySelector('video');
         if (entry.isIntersecting) {
-          if (video.preload !== 'auto') video.preload = 'auto';
+          if (!video.getAttribute('src') && video.dataset.src) {
+            video.src = video.dataset.src;
+          }
           video.play().catch(() => {});
         } else {
           video.pause();
