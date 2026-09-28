@@ -1,5 +1,5 @@
 ﻿/* ============================================================
-   Abu Nayem Md. Asraf Siddiquee - Portfolio Scripts
+   Asraf Siddiquee - Portfolio Scripts
    ============================================================ */
 (() => {
   'use strict';

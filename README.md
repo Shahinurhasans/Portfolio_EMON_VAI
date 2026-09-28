@@ -1,4 +1,4 @@
-﻿# Abu Nayem Md. Asraf Siddiquee - Portfolio
+﻿# Asraf Siddiquee - Portfolio
 
 A modern, single-page portfolio website built with **plain HTML, CSS, and JavaScript** - no
 frameworks, no build step, no dependencies. Designed to be deployed directly on **GitHub Pages**.
